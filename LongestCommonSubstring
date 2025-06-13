@@ -1,0 +1,31 @@
+public class LongestCommonSubstring {
+
+    // Recursive function to find longest common suffix length of substrings ending at s1[m-1], s2[n-1]
+    public static int LCSuf(String s1, String s2, int m, int n) {
+        if (m == 0 || n == 0 || s1.charAt(m - 1) != s2.charAt(n - 1)) {
+            return 0;
+        }
+        return 1 + LCSuf(s1, s2, m - 1, n - 1);
+    }
+
+    // Function to find the length of the longest common substring
+    public static int maxCommonStr(String s1, String s2) {
+        int res = 0;
+        int m = s1.length();
+        int n = s2.length();
+
+        // Find the longest common substring ending at every pair (i, j)
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                res = Math.max(res, LCSuf(s1, s2, i, j));
+            }
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        String s1 = "abcaxyz";
+        String s2 = "xyzabca";
+        System.out.println(maxCommonStr(s1, s2));  // Expected output: 3 ("abc" or "xyz")
+    }
+}
